@@ -7,3 +7,8 @@
   tasks:
     - name: 测试连接
       ping:
+    - name: ssh key auth
+      authorized_key:
+        user: vagrant
+        key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+        state: present
