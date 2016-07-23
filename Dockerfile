@@ -18,6 +18,8 @@ RUN yum install epel-release -y \
   && pip install passlib \
   && yum reinstall glibc-common -y
 
+RUN echo "PS1='[console]# '" >> /root/.bashrc
+
 # 把语言设置成简体中文
 
 ENV LANG zh_CN.UTF-8
