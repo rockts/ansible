@@ -1,0 +1,9 @@
+---
+
+- name: ansible playbook
+  hosts: all
+  remote_user: vagrant
+  become: yes
+  tasks:
+    - name: 测试连接
+      ping:
