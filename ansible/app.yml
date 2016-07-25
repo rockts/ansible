@@ -12,3 +12,7 @@
         user: vagrant
         key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
         state: present
+    - name: 安装 epel 仓库
+      yum:
+        name: epel-release
+        state: latest
