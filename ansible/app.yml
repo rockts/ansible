@@ -16,3 +16,7 @@
       yum:
         name: epel-release
         state: latest
+    - name: 添加 docker 仓库
+      copy:
+        src: ./files/docker-testing.repo
+        dest: /etc/yum.repos.d/
