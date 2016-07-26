@@ -20,3 +20,12 @@
       copy:
         src: ./files/docker-testing.repo
         dest: /etc/yum.repos.d/
+    - name: 安装 docker
+      yum:
+        name: docker-engine
+        state: latest
+    - name: 启动 docker
+      service:
+        name: docker
+        state: started
+        enabled: true
