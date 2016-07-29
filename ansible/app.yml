@@ -38,6 +38,14 @@
       notify:
         - 重启 systemd
         - 重启 docker
+    - name: 添加用户
+      user:
+        name: wanghao
+        state: present
+        groups: wheel
+        append: yes
+      tags:
+        - user
 
   handlers:
     - name: 重启 systemd
