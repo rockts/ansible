@@ -29,3 +29,18 @@
         name: docker
         state: started
         enabled: true
+    - name: 配置 docker 服务
+      copy:
+        src: ./files/docker.service
+        dest: /etc/systemd/system/
+      notify:
+        - 重启 systemd
+        - 重启 docker
+
+  handlers:
+    - name: 重启 systemd
+      command: /usr/bin/systemctl daemon-reload
+    - name: 重启 docker
+      service:
+        name: docker
+        state: restarted
