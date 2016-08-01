@@ -27,6 +27,15 @@
       yum:
         name: epel-release
         state: latest
+    - name: 常用工具
+      yum:
+        name: '{{ item }}'
+        state: latest
+      with_items:
+        - tree
+        - zip
+      tags:
+        - common
     - name: 添加 docker 仓库
       copy:
         src: ./files/docker-testing.repo
