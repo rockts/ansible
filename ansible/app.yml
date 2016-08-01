@@ -1,9 +1,12 @@
 ---
 
 - name: ansible playbook
-  hosts: all
+  hosts: '{{ hosts }}'
   remote_user: vagrant
   become: yes
+  vars:
+    user_name: 'wanghao'
+    hosts: all
   tasks:
     - name: 测试连接
       ping:
@@ -40,7 +43,7 @@
         - 重启 docker
     - name: 添加用户
       user:
-        name: wanghao
+        name: '{{ user_name }}'
         state: present
         groups: wheel
         append: yes
