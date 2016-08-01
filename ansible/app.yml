@@ -8,6 +8,12 @@
     user_name: 'wanghao'
     hosts: all
   tasks:
+    - name: 红帽家族
+      debug:
+        msg: '红帽家族'
+      when: ansible_os_family == 'Debian'
+      tags:
+        - test
     - name: 测试连接
       ping:
       tags:
