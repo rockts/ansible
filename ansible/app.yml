@@ -7,6 +7,7 @@
   vars:
     user_name: 'wanghao'
     hosts: all
+    docker_registry_mirror: 'https://wgaccbzr.mirror.aliyuncs.com'
   tasks:
     - name: 红帽家族
       debug:
@@ -52,12 +53,14 @@
       tags:
         - start-docker
     - name: 配置 docker 服务
-      copy:
-        src: ./files/docker.service
-        dest: /etc/systemd/system/
+      template:
+        src: ./files/docker.service.j2
+        dest: /etc/systemd/system/docker.service
       notify:
         - 重启 systemd
         - 重启 docker
+      tags:
+        - config-docker
     - name: 添加用户
       user:
         name: '{{ user_name }}'
