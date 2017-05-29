@@ -1,0 +1,40 @@
+---
+
+- name: ansible playbook
+  hosts: '{{ hosts }}'
+  remote_user: vagrant
+  become: yes
+  vars:
+    user_name: 'rockts'
+    hosts: all
+  tasks:
+    - include: test.yml
+    - name: ssh key auth
+      authorized_key:
+        user: vagrant
+        key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+        state: present
+    - name: install epel-release
+      yum:
+        name: epel-release
+        state: latest
+    - name: Common tool
+      yum:
+        name: '{{ item.name }}'
+        state: '{{ item.state }}'
+      with_items:
+        - { name: tree, state: latest }
+        - { name: zip, state: latest }
+      tags:
+        - common
+    - name: Add user
+      user:
+        name: '{{ user_name }}'
+        state: present
+        groups: wheel
+        append: yes
+        password: $6$rounds=656000$pwUJf9hW5RH3Wfft$8jR926G.j2rhG5NJftiEDyEDUh6saKRU3So2.OXsD5vvXtLHyt0oTQb1C5yf3ulVz5Fj4rNpmTVdKJ2nGsxmM0
+      tags:
+        - user
+  roles:
+    - docker

@@ -1,0 +1,11 @@
+---
+- name: Red Hat family
+  debug:
+    msg: 'Rad Hat family'
+    when: ansible_os_family == 'RedHat'
+    tags:
+      - test
+- name: Connection test
+  ping:
+  tags:
+    - test

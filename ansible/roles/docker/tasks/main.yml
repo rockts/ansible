@@ -1,0 +1,23 @@
+---
+- name: add docker repo
+  copy:
+    src: docker.repo
+    dest: /etc/yum.repos.d/
+- name: instll docker
+  yum:
+    name: docker-engine
+    state: latest
+- name: start docker
+  service:
+    name: docker
+    state: started
+    enabled: true
+- name: Config docker service
+  template:
+    src: docker.service.j2
+    dest: /etc/systemd/system/docker.service
+  notify:
+    - Reboot systemd
+    - Reboot docker
+  tags:
+    - config-docker
