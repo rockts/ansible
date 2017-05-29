@@ -5,7 +5,7 @@
   remote_user: vagrant
   become: yes
   vars:
-    user_name: 'wanghao'
+    user_name: 'rockts'
     hosts: all
   tasks:
     - include: test.yml
@@ -14,11 +14,11 @@
         user: vagrant
         key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
         state: present
-    - name: 安装 epel 仓库
+    - name: Install epel repos
       yum:
         name: epel-release
         state: latest
-    - name: 常用工具
+    - name: Common tool
       yum:
         name: '{{ item.name }}'
         state: '{{ item.state }}'
@@ -27,13 +27,13 @@
         - { name: zip, state: latest }
       tags:
         - common
-    - name: 添加用户
+    - name: Add User
       user:
         name: '{{ user_name }}'
         state: present
         groups: wheel
         append: yes
-        password: '$6$rounds=656000$Q9VgbXrAzyMOi.YK$Xp3hd4lKs6xlpK0ZFBlU7GEOI1QPuXxifA1EAadWQvxz9l7mr6gHVLPpk2rMmB7I8frQB47NMpGiMhtPztVgG.'
+        password: '$6$rounds=656000$qXsT6YIlIs5R5OGm$rNOor0eMQGbqsE6yt4OAbwJkV.WrWlmmEXvSxkxbxemsuZriY2eELdYMiR9reyL.fnWE5nRTV8oreQwKCI0s0/'
       tags:
         - user
   roles:

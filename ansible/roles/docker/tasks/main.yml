@@ -1,25 +1,25 @@
 ---
-- name: 添加 docker 仓库
+- name: Add docker repos
   copy:
     src: docker.repo
     dest: /etc/yum.repos.d/
-- name: 安装 docker
+- name: Install docker
   yum:
     name: docker-engine
     state: latest
-- name: 启动 docker
+- name: Start up docker
   service:
     name: docker
     state: started
     enabled: true
   tags:
     - start-docker
-- name: 配置 docker 服务
+- name: Config docker service
   template:
     src: docker.service.j2
     dest: /etc/systemd/system/docker.service
   notify:
-    - 重启 systemd
-    - 重启 docker
+    - Reboot systemd
+    - Reboot docker
   tags:
     - config-docker
